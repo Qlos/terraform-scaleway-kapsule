@@ -23,6 +23,7 @@ resource "scaleway_k8s_cluster" "main" {
   tags                        = var.tags
   feature_gates               = var.feature_gates
   admission_plugins           = var.admission_plugins
+  private_network_id          = var.private_network_id
   delete_additional_resources = var.delete_additional_resources
 
   dynamic "autoscaler_config" {

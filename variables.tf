@@ -81,6 +81,11 @@ variable "enable_cluster_autoscaler" {
   description = "(Optional) Enables the Kubernetes cluster autoscaler."
 }
 
+variable "private_network_id" {
+  description = "The ID of the private network of the cluster."
+  type        = string
+}
+
 variable "disable_scale_down" {
   default     = false
   type        = bool
