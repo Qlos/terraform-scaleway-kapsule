@@ -22,6 +22,7 @@ output "id" {
 output "kubeconfig" {
   value       = scaleway_k8s_cluster.main.kubeconfig
   description = "The Kubernetes configuration."
+  sensitive   = true
 }
 
 output "status" {
