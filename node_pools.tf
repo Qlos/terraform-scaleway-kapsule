@@ -19,16 +19,21 @@ resource "scaleway_k8s_pool" "pools" {
 
   cluster_id = scaleway_k8s_cluster.main.id
 
-  name                = each.key
-  node_type           = each.value.node_type
-  size                = each.value.size
-  min_size            = lookup(each.value, "min_size", local.min_size)
-  max_size            = lookup(each.value, "max_size", each.value.size)
-  tags                = lookup(each.value, "tags", local.tags)
-  placement_group_id  = lookup(each.value, "placement_group_id", null)
-  autoscaling         = lookup(each.value, "autoscaling", false)
-  autohealing         = lookup(each.value, "autohealing", false)
-  container_runtime   = "containerd"
-  region              = lookup(each.value, "region", null)
-  wait_for_pool_ready = lookup(each.value, "wait_for_pool_ready", false)
+  name                   = each.key
+  node_type              = each.value.node_type
+  size                   = each.value.size
+  min_size               = lookup(each.value, "min_size", local.min_size)
+  max_size               = lookup(each.value, "max_size", each.value.size)
+  tags                   = lookup(each.value, "tags", local.tags)
+  placement_group_id     = lookup(each.value, "placement_group_id", null)
+  autoscaling            = lookup(each.value, "autoscaling", false)
+  autohealing            = lookup(each.value, "autohealing", false)
+  container_runtime      = lookup(each.value, "container_runtime", "containerd")
+  kubelet_args           = lookup(each.value, "kubelet_args", null)
+  root_volume_type       = lookup(each.value, "root_volume_type", null)
+  root_volume_size_in_gb = lookup(each.value, "root_volume_size_in_gb", null)
+  zone                   = lookup(each.value, "zone", null)
+  region                 = lookup(each.value, "region", null)
+  wait_for_pool_ready    = lookup(each.value, "wait_for_pool_ready", false)
+  public_ip_disabled     = lookup(each.value, "public_ip_disabled", false)
 }

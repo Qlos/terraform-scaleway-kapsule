@@ -92,6 +92,7 @@ node_pools = {
       "autoscaling"         = true
       "autohealing"         = false
       "wait_for_pool_ready" = true
+      "public_ip_disabled"  = true
       "tags"                = [ "prod", "ops", "terraform" ]
     }
 }
