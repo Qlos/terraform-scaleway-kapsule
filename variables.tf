@@ -158,14 +158,21 @@ variable "maintenance_window_day" {
 variable "node_pools" {
   description = "Node pools configuration for Kubernetes cluster."
   type = map(object({
-    node_type           = string
-    size                = number
-    min_size            = number
-    max_size            = number
-    autoscaling         = bool
-    autohealing         = bool
-    wait_for_pool_ready = bool
-    tags                = list(string)
+    node_type              = string
+    size                   = number
+    min_size               = number
+    max_size               = number
+    placement_group_id     = optional(string)
+    autoscaling            = optional(bool, false)
+    autohealing            = optional(bool, true)
+    container_runtime      = optional(string)
+    root_volume_type       = optional(string)
+    root_volume_size_in_gb = optional(number)
+    zone                   = optional(string)
+    region                 = optional(string)
+    wait_for_pool_ready    = optional(bool, false)
+    public_ip_disabled     = optional(bool, false)
+    tags                   = optional(list(string), [])
   }))
   default = {}
 }

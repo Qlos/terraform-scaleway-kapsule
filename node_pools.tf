@@ -19,17 +19,16 @@ resource "scaleway_k8s_pool" "pools" {
 
   cluster_id = scaleway_k8s_cluster.main.id
 
-  name                   = each.key
+  name                   = join("-", [var.name, each.key])
   node_type              = each.value.node_type
   size                   = each.value.size
-  min_size               = lookup(each.value, "min_size", local.min_size)
+  min_size               = lookup(each.value, "min_size", 1)
   max_size               = lookup(each.value, "max_size", each.value.size)
-  tags                   = lookup(each.value, "tags", local.tags)
+  tags                   = lookup(each.value, "tags", [])
   placement_group_id     = lookup(each.value, "placement_group_id", null)
   autoscaling            = lookup(each.value, "autoscaling", false)
   autohealing            = lookup(each.value, "autohealing", false)
   container_runtime      = lookup(each.value, "container_runtime", "containerd")
-  kubelet_args           = lookup(each.value, "kubelet_args", null)
   root_volume_type       = lookup(each.value, "root_volume_type", null)
   root_volume_size_in_gb = lookup(each.value, "root_volume_size_in_gb", null)
   zone                   = lookup(each.value, "zone", null)
